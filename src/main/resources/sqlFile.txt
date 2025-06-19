@@ -7,6 +7,8 @@ create database bootdb;
 grant all privileges on bootdb.* to 'springuser'@'localhost';
 flush privileges;
 
+-- 250618
+
 create table board(
 bno bigint auto_increment,
 title varchar(200) not null,
@@ -14,3 +16,25 @@ writer varchar(200) not null,
 content text,
 reg_date datetime default now(),
 primary key(bno));
+
+-- 250619
+
+file table 생성
+create table file(
+uuid varchar(256),
+save_dir varchar(256) not null,
+file_name varchar(256) not null,
+file_type tinyint(1) default 0,
+bno bigint not null,
+file_size bigint,
+reg_date datetime default now(),
+primary key(uuid));
+
+comment table 생성
+create table comment(
+cno bigint auto_increment,
+bno bigint not null,
+writer varchar(500) not null,
+content text,
+reg_date datetime default now(),
+primary key(cno));

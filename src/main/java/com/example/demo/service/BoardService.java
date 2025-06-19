@@ -1,17 +1,26 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.BoardDTO;
 import com.example.demo.domain.BoardVO;
+import com.example.demo.domain.FileVO;
+import com.example.demo.domain.PagingVO;
 
 import java.util.List;
 
 public interface BoardService {
-    void insertBoard(BoardVO bvo);
+    void insertBoard(BoardDTO boardDTO);
 
-    List<BoardVO> getList();
+    List<BoardVO> getList(PagingVO pagingVO);
 
-    BoardVO getDetail(long bno);
+    BoardDTO getDetail(long bno);
 
     void deleteBoard(long bno);
 
     void modifyBoard(BoardVO boardVO);
+
+    int getTotalCount(PagingVO pagingVO);
+
+    FileVO getFile(String uuid);
+
+    int fileDelete(String uuid);
 }

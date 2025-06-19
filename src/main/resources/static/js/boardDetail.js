@@ -30,6 +30,45 @@ modifyBtn.addEventListener('click', () => {
     // form 태그의 마지막 자식으로 추가 - form 태그의 가장 마지막에 추가
     document.getElementById('modifyForm').appendChild(regBtn);
 
+    // file-x 버튼의 클래스 style="visibility:hidden" => "visibility:visible"
+    let fileDelBtn = document.querySelectorAll('.file-x');
+    for(let btn of fileDelBtn){
+        btn.style.visibility = "visible";
+        btn.addEventListener('click', () => {
+            let uuid = btn.dataset.uuid;
+            console.log(uuid);
+            fileRemoveToserver(uuid).then(result => {
+                if(result === "1"){
+                    alert('파일 삭제 성공');
+                    btn.closest('li').remove();
+                }else{
+                    alert('퍄일 삭제 실패')
+                }
+            })
+        })
+    }
 
-    
-})
+    // 파일 버튼 disabled 해지
+    document.getElementById('trigger').disabled = false;
+
+});
+
+// file-x 비동기 보내서 파일 삭제
+async function fileRemoveToserver(uuid) {
+    try {
+        const url = '/board/file/'+uuid;
+        const config = {
+            method : 'delete'
+        }
+
+        const resp = await fetch(url,config);
+        const result = await resp.text();
+
+        return result;
+
+    } catch (error) {
+        console.log(error);        
+    }
+}
+
+
