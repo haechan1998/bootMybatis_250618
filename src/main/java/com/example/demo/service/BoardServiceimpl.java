@@ -56,8 +56,18 @@ public class BoardServiceimpl implements BoardService{
     }
 
     @Override
-    public void modifyBoard(BoardVO boardVO) {
-        boardMapper.modifyBoard(boardVO);
+    public void modifyBoard(BoardDTO boardDTO) {
+
+        boardMapper.modifyBoard(boardDTO.getBoardVO());
+        if(boardDTO.getFileList() == null){
+            return;
+        }
+        if(!boardDTO.getFileList().isEmpty()){
+            for(FileVO file : boardDTO.getFileList()){
+                file.setBno(boardDTO.getBoardVO().getBno());
+                fileMapper.insertFile(file);
+            }
+        }
     }
 
     @Override

@@ -16,7 +16,7 @@ public interface BoardService {
 
     void deleteBoard(long bno);
 
-    void modifyBoard(BoardVO boardVO);
+    void modifyBoard(BoardDTO boardDTO);
 
     int getTotalCount(PagingVO pagingVO);
 

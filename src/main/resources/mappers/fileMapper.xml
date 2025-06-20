@@ -20,5 +20,6 @@
     <select id="getFile" resultType="com.example.demo.domain.FileVO">
         select * from file where uuid = #{uuid}
     </select>
+    
 
 </mapper>

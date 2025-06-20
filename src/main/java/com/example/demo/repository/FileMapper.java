@@ -14,4 +14,5 @@ public interface FileMapper {
     FileVO getFile(String uuid);
 
     int fileDelete(String uuid);
+
 }

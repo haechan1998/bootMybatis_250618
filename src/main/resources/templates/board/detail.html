@@ -11,7 +11,7 @@
     <th:block th:with="bvo=${boardDTO.boardVO}">
 
     <h3>NO.[[${bvo.bno}]] Board Detail Page</h3>
-    <form action="/board/modify" method="post" id="modifyForm">
+    <form action="/board/modify" method="post" id="modifyForm" enctype="multipart/form-data">
       <input type="hidden" name="bno" th:value="${bvo.bno}">
       <div class="mb-3">
         <label for="t" class="form-label">제목</label>
@@ -69,7 +69,7 @@
       <!-- file 추가 -->
       <div class="mb-3">
         <input type="file" class="form-control" name="files" id="file" multiple style="display:none;">
-        <button type="button" class="btn btn-outline-success" id="trigger">파일</button>
+        <button type="button" class="btn btn-outline-success" id="trigger" disabled>파일</button>
       </div>
       <!-- file 표시 -->
       <div class="mb-3" id="fileZone">
@@ -79,11 +79,37 @@
       <button type="button" class="btn btn-info" id="modifyBtn">수정</button>
       <a th:href="@{/board/delete(bno=${bvo.bno})}"><button type="button" class="btn btn-danger" id="deleteBtn">삭제</button></a>
 
+
     </form>
+      <!-- 댓글 입력 라인 -->
+      <div class="input-group mb-3 w-50" style="margin-top : 100px" th:with="auth=${#authentication.getPrincipal}, bvo=${boardDTO.boardVO}">
+        <span class="input-group-text">아이디</span>
+        <input type="text" class="form-control" aria-label="Username" th:value="${auth.username}" id="email" readonly> <!-- 로그인한 계정의 email -->
+        <span class="input-group-text">닉네임</span>
+        <input type="text" class="form-control" aria-label="Server" th:value="${auth.userVO.getNickName}" id="nickName" readonly> <!-- 로그인한 계정의 nickName -->
+      </div>
+
+      <div class="input-group w-50">
+        <span class="input-group-text">comment</span>
+        <textarea class="form-control" aria-label="With textarea" id="content" placeholder="comment"></textarea>
+      </div>
+      <button type="button" id="commentRegBtn" disabled>댓글등록</button>
+      <!-- 댓글 출력라인 -->
+      <div class="input-group mb-3 w-50" style="margin-top : 100px" id="printComment">
+
+      </div>
 
     </th:block>
-
+    <th:block th:with="auth=${#authentication.getPrincipal}, bvo=${boardDTO.boardVO}">
+      <script th:inline="javascript">
+        const bno = [[${bvo.bno}]];
+      </script>
+    </th:block>
     <script th:src="@{/js/boardDetail.js}"></script>
     <script th:src="@{/js/boardRegister.js}"></script>
+    <script th:src="@{/js/boardDetailComment.js}"></script>
+    <script>
+      printCommentList(bno);
+    </script>
   </div>
 </div>

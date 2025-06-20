@@ -32,15 +32,24 @@ dependencies {
 	// https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
-    // tika
-	// https://mvnrepository.com/artifact/org.apache.tika/tika-core
-	implementation 'org.apache.tika:tika-core:2.4.1'
-	// https://mvnrepository.com/artifact/org.apache.tika/tika-parsers
-	implementation 'org.apache.tika:tika-parsers:2.4.1'
+	// thymeleaf security
+	// https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity6
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+//  // tika 미사용
+//	// https://mvnrepository.com/artifact/org.apache.tika/tika-core
+//	implementation 'org.apache.tika:tika-core:2.4.1'
+//	// https://mvnrepository.com/artifact/org.apache.tika/tika-parsers
+//	implementation 'org.apache.tika:tika-parsers:2.4.1'
 
 	// thumbnailator
 	// https://mvnrepository.com/artifact/net.coobird/thumbnailator
 	implementation 'net.coobird:thumbnailator:0.4.17'
+
+	// security
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

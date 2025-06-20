@@ -18,7 +18,9 @@
 
       <div class="mb-3">
         <label for="w" class="form-label">작성자</label>
-        <input type="text" class="form-control" name="writer" id="w" placeholder="writer..">
+        <input type="text" class="form-control" name="writer" id="w" readonly placeholder="writer.."
+               th:value="${#authentication.getPrincipal.username}"
+        >
       </div>
 
       <div class="mb-3">
