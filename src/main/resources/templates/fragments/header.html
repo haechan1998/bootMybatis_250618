@@ -51,7 +51,7 @@
             </li>
             <!-- ADMIN 권한만 보이는 메뉴 -->
             <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-              <a class="nav-link active" aria-current="page" th:href="@{/user/list}">(권한이 'ADMIN' 일 경우에만))userList</a>
+              <a class="nav-link active" aria-current="page" th:href="@{/user/list}">userList</a>
             </li>
 
           </ul>

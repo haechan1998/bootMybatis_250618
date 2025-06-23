@@ -21,4 +21,29 @@
         select * from auth where email = #{email}
     </select>
     
+    <select id="getUserList" resultType="com.example.demo.domain.UserVO">
+        select * from user
+    </select>
+    
+    <select id="getAuthList" resultType="com.example.demo.domain.AuthVO">
+        select * from auth where email = #{email}
+    </select>
+    
+    <select id="getUser" resultType="com.example.demo.domain.UserVO">
+        select * from user where email = #{email}
+    </select>
+    
+    <update id="updateUser">
+        update user set nick_name = #{nickName}, pwd = #{pwd} where email = #{email}
+    </update>
+
+    <delete id="removeUserAuth">
+        delete from auth where email = #{email}
+    </delete>
+
+    <delete id="removeUser">
+        delete from user where email = #{email}
+    </delete>
+    
+    
 </mapper>

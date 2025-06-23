@@ -15,4 +15,16 @@ public interface UserMapper {
     UserVO selectUser(String username);
 
     List<AuthVO> selectAuths(String username);
+
+    List<UserVO> getUserList();
+
+    List<AuthVO> getAuthList(String email);
+
+    UserVO getUser(UserVO userVO);
+
+    void updateUser(UserVO userVO);
+
+    void removeUser(UserVO userVO);
+
+    void removeUserAuth(UserVO userVO);
 }

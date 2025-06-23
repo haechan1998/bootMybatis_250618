@@ -1,6 +1,7 @@
 console.log("boardDetailComment.js in");
 
 console.log(bno);
+console.log(userNickName);
 
 // commentRegBtn 버튼 disabled 값 풀어주기
 const emailInput = document.getElementById('email');
@@ -57,14 +58,19 @@ function printCommentList(bno){
 
             for(let cvo of result){
                 let str = `<li class="list-group-item" data-cno="${cvo.cno}">`;
-                str += `<div class="mb-3">`;
+                str += `<div class="mb-3 input-group">`;
                 str += `<span class="input-group-text">${cvo.writer}</span>`;
-                str += `<input type="text" class="form-control" placeholder="Username" aria-label="Username" value="${cvo.content}" readonly"></input>`;
-                str += `<span class="badge rounded-pill text-bg-info">${cvo.regDate}</span>`;
-                str += `<button type="button" class="btn btn-outline-primary btn-sm">
-                        수정
-                        </button>`; // 수정버튼
-                str += `<button type="button" class="btn btn-outline-warning del btn-sm">삭제</button>`; // 삭제버튼
+                str += `<input type="text" class="form-control" placeholder="content" aria-label="Username" value="${cvo.content}" readonly></input>`;
+                str += `<span class="input-group-text">${cvo.regDate}</span>`;
+                if(cvo.writer == userNickName){
+                    // 작성자 이름과 로그인한 유저의 닉네임이 같을경우에만 수정, 삭제 버튼 출력
+                    str += `<button type=button class="btn btn-primary modReg btn-sm" style="display : none;">수정완료</button>`
+                    str += `<button type="button" class="btn btn-outline-primary mod btn-sm">
+                            수정
+                            </button>`; // 수정버튼
+                    str += `<button type="button" class="btn btn-outline-warning del btn-sm">삭제</button>`; // 삭제버튼
+
+                }
                 str += `</div>`;
                 str += `</li>`;
                 printComment.innerHTML += str;
@@ -77,6 +83,56 @@ function printCommentList(bno){
 
     })
 }
+
+// 수정버튼인지 삭제버튼인지
+document.addEventListener("click", (e) => {
+    let li = e.target.closest('li');
+    let updateCommentInput = li.querySelector('input');// 가장 가까운 input의 readonly를 해제하고 포커스를 줄것이다.
+    let cno = li.dataset.cno;
+
+    // 삭제
+    if(e.target.classList.contains('del')){
+
+        deleteCommentToServer(cno).then(result => {
+            if(result == "1"){
+                alert('삭제성공')
+            }else{
+                alert('삭제실패')
+            }
+            printCommentList(bno);
+        })
+    }
+    // 수정 버튼을 클릭하면
+    if(e.target.classList.contains('mod')){
+
+        updateCommentInput.readOnly = false;
+        updateCommentInput.focus();
+
+        let modRegBtn = li.querySelector('.modReg');
+        let modBtn = li.querySelector('.mod');
+        if(modRegBtn){
+            modRegBtn.style.display = 'inline-block';
+        }
+        if(modBtn){
+            modBtn.style.display = 'none';
+        }
+        
+    }
+    
+    if(e.target.classList.contains('modReg')){
+        const content = updateCommentInput.value;
+        updateCommentToServer(cno, content).then(result => {
+            if(result == "1"){
+                alert('수정 성공');
+            }else{
+                alert('수정 실패');
+            }
+            printCommentList(bno);
+        })
+        updateCommentInput.readOnly = true;
+    }
+})
+
 
 
 // comment 의 데이터 값 보내기
@@ -115,4 +171,47 @@ async function getCommentListFromServer(bno) {
         console.log(error);
     }
     
+}
+
+// comment 삭제.
+async function deleteCommentToServer(cno) {
+    try {
+        const config = {
+            method : 'delete'
+        }
+
+        const resp = await fetch(`/comment/delete?cno=${cno}`, config);
+        const result = await resp.text();
+        return result;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// comment 수정.
+async function updateCommentToServer(cno, content) {
+    try {
+        
+        const updateCmtData = {
+            cno : cno,
+            content : content
+        }
+
+        const config ={
+            method : 'put',
+            headers : {
+                'Content-Type' : 'application/json; charset=utf-8'
+                },
+            body : JSON.stringify(updateCmtData)
+             
+        }
+        
+        const resp = await fetch(`/comment/updateComment`, config)
+        const result = await resp.text();
+        return result;
+
+    } catch (error) {
+        console.log(error);
+    }
 }

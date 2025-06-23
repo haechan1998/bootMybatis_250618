@@ -39,6 +39,29 @@ public class CommentController {
         return ResponseEntity.ok(list);
     }
 
+    // HTTP GET 방식으로 쿼리 파라미터를 받는 방식
+    @DeleteMapping("/comment/delete")
+    public ResponseEntity<String> deleteComment(@RequestParam("cno") long cno){
+
+        int isOk = commentService.deleteComment(cno);
+
+        return ResponseEntity.ok(isOk > 0 ? "1" : "0");
+    }
+
+    @PutMapping("/comment/updateComment")
+    public ResponseEntity<String> updateComment(@RequestBody CommentVO commentVO){
+
+        long cno = commentVO.getCno();
+        String content = commentVO.getContent();
+        // 수정하기 귀찮으니 그냥 get 으로 값들을 가져와서 세팅해주자...
+
+        int isOk = commentService.updateComment(cno, content);
+
+        return ResponseEntity.ok(isOk > 0 ? "1" : "0");
+    }
+
+
+
 
 
 

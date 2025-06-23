@@ -22,4 +22,14 @@ public class CommentServiceImpl implements CommentService{
     public List<CommentVO> getCommentList(long bno) {
         return commentMapper.getCommentList(bno);
     }
+
+    @Override
+    public int deleteComment(long cno) {
+        return commentMapper.deleteComment(cno);
+    }
+
+    @Override
+    public int updateComment(long cno, String content) {
+        return commentMapper.updateComment(cno, content);
+    }
 }

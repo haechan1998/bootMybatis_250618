@@ -8,4 +8,8 @@ public interface CommentService {
     int insertComment(CommentVO commentVO);
 
     List<CommentVO> getCommentList(long bno);
+
+    int deleteComment(long cno);
+
+    int updateComment(long cno, String content);
 }

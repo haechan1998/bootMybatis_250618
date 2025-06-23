@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+>
+
+<div layout:fragment="content">
+  <div class="container-md">
+    <h3>User List Page</h3>
+      <div class="card" style="width: 24rem; margin-top : 20px;" th:each="uvo:${userList}">
+        <img th:src="@{/image/choonsic.jpg}" class="card-img-top" alt="...">
+
+        <div class="card-header text-bg-success">
+          ROLE
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" th:each="avo:${uvo.authList}">[[${avo.auth}]]</li>
+        </ul>
+
+        <div class="card-header text-bg-primary">
+          닉네임(아이디)
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">[[${uvo.nickName}]]([[${uvo.email}]])</li>
+        </ul>
+
+        <div class="card-header text-bg-info">
+          가입일(마지막 로그인)
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">[[${uvo.regDate}]]([[${uvo.lastLogin}]])</li>
+        </ul>
+      </div>
+  </div>
+</div>

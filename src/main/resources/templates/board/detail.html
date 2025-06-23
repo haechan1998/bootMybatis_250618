@@ -93,16 +93,19 @@
         <span class="input-group-text">comment</span>
         <textarea class="form-control" aria-label="With textarea" id="content" placeholder="comment"></textarea>
       </div>
-      <button type="button" id="commentRegBtn" disabled>댓글등록</button>
+      <button type="button" id="commentRegBtn" class="btn btn-primary" disabled>댓글등록</button>
       <!-- 댓글 출력라인 -->
-      <div class="input-group mb-3 w-50" style="margin-top : 100px" id="printComment">
-
+      <div class="input-group mb-3" style="margin-top : 100px">
+        <ul id="printComment" style="padding-left : 0;">
+        </ul>
       </div>
+
 
     </th:block>
     <th:block th:with="auth=${#authentication.getPrincipal}, bvo=${boardDTO.boardVO}">
       <script th:inline="javascript">
         const bno = [[${bvo.bno}]];
+        const userNickName = [[${auth.userVO.nickName}]]
       </script>
     </th:block>
     <script th:src="@{/js/boardDetail.js}"></script>

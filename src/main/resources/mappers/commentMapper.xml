@@ -11,6 +11,14 @@
     <select id="getCommentList" resultType="com.example.demo.domain.CommentVO">
         select * from comment where bno = #{bno}
     </select>
+    
+    <delete id="deleteComment">
+        delete from comment where cno = #{cno}
+    </delete>
+    
+    <update id="updateComment">
+        update comment set content = #{content} where cno = #{cno}
+    </update>
 
 
 </mapper>
